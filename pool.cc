@@ -57,7 +57,7 @@ void ThreadPool::WaitForTask(const std::string &name) {
     // task could be finished when we first check or we may have to
     // wait for it to finish
     while(!task->is_finished) {
-        pthread_cond_wait(&task->task_cv, &task->task_mutex);
+        pthread_cond_wait(&task->task_cv, &task->task_finished_mutex);
     }
     // task should be finished now
     pthread_mutex_unlock(&task->task_finished_mutex);
@@ -112,10 +112,10 @@ void * ThreadPool::ThreadTask(void) {
         // run the task
         t->Run();
         // When it is done, signal that it is finished
-        pthread_mutex_lock(&t->task_mutex);
+        pthread_mutex_lock(&t->task_finished_mutex);
         t->is_finished = true;
         pthread_cond_signal(&(t->task_cv));
-        pthread_mutex_unlock(&(t->task_mutex));
+        pthread_mutex_unlock(&(t->task_finished_mutex));
     }
     return 0;
 }

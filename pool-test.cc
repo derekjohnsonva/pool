@@ -357,7 +357,7 @@ int main(void) {
     test_run_in_order(1, 10, true, false);
     test_run_in_order(1, 10, true, true);
     test_run_in_order(10, 5, true, true);
-    test_run_in_order(2, 10, false, false); // broken
+    test_run_in_order(2, 10, false, false);
     test_run_in_order(2, 10, false, true);
     test_run_in_order(2, 10, true, false);
     test_run_in_order(2, 10, true, true);
