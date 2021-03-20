@@ -12,16 +12,16 @@ ThreadPool::ThreadPool(int num_threads) {
     // initialize the mutex lock and condition variable
     pthread_mutex_init(&threads_mutex, NULL);
     pthread_cond_init(&threads_cv, NULL);
+
     // initialize the stopping boolean
     is_stopped = false;
-    // make the new threads and add them to the vector
-    // threads.resize(num_threads);
-    for(int i = 0; i < num_threads; i++) {
-        pthread_t new_thread = 0;
-        threads.push_back(new_thread);
-    }
+
+    // set the vector size
+    threads.resize(num_threads);
+
     pthread_mutex_lock(&threads_mutex);
-    for (int i = 0; i < threads.size(); ++i) {
+
+    for (int i = 0; i < (int)threads.size(); ++i) {
         pthread_create(&threads[i], NULL, ThreadTaskWrapper, static_cast<void *>(this));
     }
     pthread_mutex_unlock(&threads_mutex);

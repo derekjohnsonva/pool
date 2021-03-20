@@ -33,3 +33,6 @@
 
 # vsCode stuff
 .vscode/*
+
+# Submission
+*.gz
